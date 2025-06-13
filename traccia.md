@@ -12,8 +12,8 @@ K - Inseriamo un console.log nella logica di connessione e proviamo ad avviare l
 
 ## Milestone 2
 
-Facciamo sì che l’API di INDEX restituisca la lista di post recuperata dal database in formato JSON
-Verifichiamo su Postman che la risposta sia corretta
+K - Facciamo sì che l’API di INDEX restituisca la lista di post recuperata dal database in formato JSON
+K - Verifichiamo su Postman che la risposta sia corretta
 
 ## Milestone 3
 

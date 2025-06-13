@@ -3,7 +3,19 @@ const connection = require("../data/db.js");
 
 // index
 const index = (req, res) => {
-  res.json({ posts });
+  const sql = "SELECT * FROM `posts`";
+
+  //ora facciamo la connection query
+  connection.query(sql, (err, results) => {
+    //qui restituiamo per l'eventuale errore
+    if (err) return res.status(500).json({ error: "Error executing query" });
+
+    //qui restituiamo i risultati corretti
+    res.json({
+      data: results,
+      status: 200,
+    });
+  });
 };
 
 const show = (req, res) => {
