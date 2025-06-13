@@ -94,24 +94,15 @@ const modify = (req, res) => {
 
 const destroy = (req, res) => {
   const postId = parseInt(req.params.id);
-  const originalPost = posts.find((post) => post.id === postId);
 
-  // not found
-  if (!originalPost) {
-    const error = new Error();
-    error.statusCode = 404;
-    error.message = "Post non trovato";
-    throw error;
-  }
+  // creiamo la query con segnaposto disidratato
+  const sql = "DELETE FROM `posts` WHERE `id` = ?";
 
-  const originalPostIndex = posts.indexOf(originalPost);
+  //usiamola
+  connection.query(sql, [postId], (err, results) => {
+    if (err) return res.status(500).json({ error: "Error executing query" });
 
-  posts.splice(originalPostIndex, 1);
-
-  res.json({
-    message: "Post con id " + postId + " eliminato correttamente .",
-    data: updatedPost,
-    status: 200,
+    res.sendStatus(204);
   });
 };
 
