@@ -1,5 +1,5 @@
 // importo data
-let posts = require("../data/posts.js").posts;
+const connection = require("../data/db.js");
 
 // index
 const index = (req, res) => {
