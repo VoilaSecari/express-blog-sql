@@ -27,11 +27,21 @@ const show = (req, res) => {
   // creare la connessione
   connection.query(sql, [postId], (err, results) => {
     if (err) return res.status(500).json({ error: "Error executing query" });
+    const post = results[0];
 
-    //qui restituiamo i risultati corretti
-    res.json({
-      data: results,
-      status: 200,
+    //qui facciamo i tags
+
+    const tagsSql =
+      "SELECT tags.* FROM post_tag INNER JOIN tags ON tags.id = post_tag.tag_id WHERE post_id = ?";
+
+    connection.query(tagsSql, [postId], (err, results) => {
+      if (err) return res.status(500).json({ error: "Error executing query" });
+      post.tags = results;
+
+      res.json({
+        data: post,
+        status: 200,
+      });
     });
   });
 };
