@@ -20,21 +20,19 @@ const index = (req, res) => {
 
 const show = (req, res) => {
   //creo costanti per navigare
-  const id = parseInt(req.params.id);
-  const post = posts.find((currentPost) => currentPost.id === id);
+  const postId = parseInt(req.params.id);
 
-  // not found
-  if (!post) {
-    const error = new Error();
-    error.statusCode = 404;
-    error.message = "Post non trovato";
-    throw error;
-  }
+  const sql = "SELECT * FROM `posts` WHERE `id` = ?";
 
-  res.json({
-    description: "Lettura sul blog del post " + id,
-    data: post,
-    status: 200,
+  // creare la connessione
+  connection.query(sql, [postId], (err, results) => {
+    if (err) return res.status(500).json({ error: "Error executing query" });
+
+    //qui restituiamo i risultati corretti
+    res.json({
+      data: results,
+      status: 200,
+    });
   });
 };
 
